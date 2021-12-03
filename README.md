@@ -1,9 +1,8 @@
 # 6_1_ELK_STACK
 
 ### A. Create two linux servers,
-
-    * server1 => install and configure kibana and elasticsearch with basic username and password authentication
-    * server2 => install and configure metricbeat
+* server1 => install and configure kibana and elasticsearch with basic username and password authentication
+* server2 => install and configure metricbeat
 
 ##### Manually enabling password
 ![image](https://user-images.githubusercontent.com/23631617/144418992-2c1309f6-611b-43a4-9b7b-914f04507e67.png)
@@ -12,6 +11,7 @@ In order to use password authentication, we need to add `xpack.security.enabled:
 
 ```bash
 echo xpack.security.enabled: true >> config/elastic.yml
+echo xpack.security.authc.api_key.enabled: true >> config/elastic.yml
 ```
 ##### Setting up password
 ![image](https://user-images.githubusercontent.com/23631617/144420206-4c55274d-55e6-4a03-a640-2f35f037ac1a.png)
@@ -44,9 +44,9 @@ ssh root@server.ip -p 11051 -L 9200:localhost:9200 -L 5601:localhost:5601 -C -N 
 ---
 
 ### Collect metric from following sources in server1 and send them to elasticsearch. Store them in an index named "server1-metrics".
-    * Memory usage
-    * Disk usage
-    * Load average
+* Memory usage
+* Disk usage
+* Load average
 
 ```
 metricbeat.modules:
@@ -74,7 +74,38 @@ setup.template.pattern: "server1-*"
 ---
 
 ### 2. Generate alerts through kibana system for following thresholds
-    * When memory usage > 80% for last 2 minutes send alert to a slack channel
-    * When Disk usage > 70%   send alert to a slack channel
-    * When load average > 1  for last 2 minutes  send alert to a slack channel
+* When memory usage > 80% for last 2 minutes send alert to a slack channel
+* When Disk usage > 70%   send alert to a slack channel
+* When load average > 1  for last 2 minutes  send alert to a slack channel
 
+We need to add encryption key to `kibana.yml` in order to make it persistent and to be able to modify triggers on
+another run of Kibana.
+
+```
+xpack.encryptedSavedObjects.encryptionKey: "gxraLwPeOGXtoZsVtJcZCLz31O0221J4"
+```
+We can individually check format for the required metrics. For memory use percentage, the unit is as follows.
+
+##### Checking format
+![image](https://user-images.githubusercontent.com/23631617/144581688-f98e2d6c-fb7a-4f5f-963e-4e8852e58636.png)
+
+##### Creating an alert trigger
+![image](https://user-images.githubusercontent.com/23631617/144578852-0a8e0976-a0e6-44da-8705-cb45d67a9248.png)
+
+##### 80% Memory for last 2 minutes
+![image](https://user-images.githubusercontent.com/23631617/144577228-0bff5af2-681e-4c75-b4e3-38a6c0a9739f.png)
+
+##### 70% Disk Usage
+![image](https://user-images.githubusercontent.com/23631617/144580466-458a0862-c25f-44a2-bc78-204c27a0c6c3.png)
+
+##### Slack Integration
+![image](https://user-images.githubusercontent.com/23631617/144580655-294d5a14-3f38-4568-974c-9207adde574c.png)
+
+##### Alert in Slack
+![image](https://user-images.githubusercontent.com/23631617/144580869-a1e347b3-22e4-4641-b498-c6dc91a1653c.png)
+
+##### Slack Alert
+![image](https://user-images.githubusercontent.com/23631617/144583728-e29f8a05-ac95-4206-be8f-e514a76c963d.png)
+
+##### Cusotom Alerts
+![image](https://user-images.githubusercontent.com/23631617/144584017-98b984ee-b1de-490a-b5d2-9e04b4067f35.png)
