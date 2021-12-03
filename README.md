@@ -1,8 +1,9 @@
 # 6_1_ELK_STACK
 
-A.  Create two linux servers,
-     server1 => install and configure kibana and elasticsearch with basic username and password authentication
-     server2 => install and configure metricbeat.
+### A. Create two linux servers,
+
+    * server1 => install and configure kibana and elasticsearch with basic username and password authentication
+    * server2 => install and configure metricbeat
 
 ##### Manually enabling password
 ![image](https://user-images.githubusercontent.com/23631617/144418992-2c1309f6-611b-43a4-9b7b-914f04507e67.png)
@@ -40,13 +41,15 @@ ssh root@server.ip -p 11051 -L 9200:localhost:9200 -L 5601:localhost:5601 -C -N 
 ##### Metricbeat Indices
 ![image](https://user-images.githubusercontent.com/23631617/144434298-2c3b60de-2bdd-4698-b360-22965568b019.png)
 
-   Collect metric from following sources in server1 and send them to elasticsearch. Store them in an index named "server1-metrics".
-    a. Memory usage
-    b. Disk usage
-    c. Load average
+---
+
+### Collect metric from following sources in server1 and send them to elasticsearch. Store them in an index named "server1-metrics".
+    * Memory usage
+    * Disk usage
+    * Load average
 
 ```
-cbeat.modules:
+metricbeat.modules:
         - module: system
           metricsets:
                   - memory
@@ -60,15 +63,18 @@ setup.template.pattern: "server1-*"
 
 ![image](https://user-images.githubusercontent.com/23631617/144554166-c0ea1369-bd2f-4149-b23c-ce172e42762a.png)
 
-  1. Create a dashboard in kibana and generate visual report(line graph) for Memory usage and load average of server1 with relation to time
+### 1. Create a dashboard in kibana and generate visual report(line graph) for Memory usage and load average of server1 with relation to time
 
 ##### Memory Usage Line Graph
 ![image](https://user-images.githubusercontent.com/23631617/144556902-4ad295c2-9686-42e5-9203-523a65dd35cc.png)
 
-##### Avaeage Load Line Graph
+##### Avaeage Load Line Graph (5 min average)
 ![image](https://user-images.githubusercontent.com/23631617/144557926-68593ffc-99ef-4569-81ad-490edad92705.png)
 
-  2. Generate alerts through kibana system for following thresholds
-    a. when memory usage > 80% for last 2 minutes send alert to a slack channel
-    b. When Disk usage > 70%   send alert to a slack channel
-    c. When load average > 1  for last 2 minutes  send alert to a slack channel
+---
+
+### 2. Generate alerts through kibana system for following thresholds
+    * When memory usage > 80% for last 2 minutes send alert to a slack channel
+    * When Disk usage > 70%   send alert to a slack channel
+    * When load average > 1  for last 2 minutes  send alert to a slack channel
+
