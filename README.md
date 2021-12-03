@@ -29,6 +29,7 @@ ssh root@server.ip -p 11051 -L 9200:localhost:9200 -L 5601:localhost:5601 -C -N 
 ```
 ##### Setup on different hosts
 ![image](https://user-images.githubusercontent.com/23631617/144426620-84b43bb8-bd3e-4df8-854b-26abb3a12a7f.png)
+![image](https://user-images.githubusercontent.com/23631617/144544545-e7b387ad-30a7-467c-a261-8a6f2f8d36dd.png)
 
 ##### Verifying Metricbeat is Setup Correctly
 ![image](https://user-images.githubusercontent.com/23631617/144431266-fcba5d6d-57c3-43f2-8565-abca74c009c1.png)
