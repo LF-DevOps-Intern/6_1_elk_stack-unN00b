@@ -10,7 +10,7 @@ A.  Create two linux servers,
 In order to use password authentication, we need to add `xpack.security.enabled: true` to `elasticsearch.yml`.
 
 ```bash
-echo xpack.security.enabled: true > config/
+echo xpack.security.enabled: true >> config/elastic.yml
 ```
 ##### Setting up password
 ![image](https://user-images.githubusercontent.com/23631617/144420206-4c55274d-55e6-4a03-a640-2f35f037ac1a.png)
@@ -45,7 +45,28 @@ ssh root@server.ip -p 11051 -L 9200:localhost:9200 -L 5601:localhost:5601 -C -N 
     b. Disk usage
     c. Load average
 
+```
+cbeat.modules:
+        - module: system
+          metricsets:
+                  - memory
+                  - diskio
+                  - load
+          index: "server1-metrics"
+          enabled: true
+setup.template.name: "server1"
+setup.template.pattern: "server1-*"
+```
+
+![image](https://user-images.githubusercontent.com/23631617/144554166-c0ea1369-bd2f-4149-b23c-ce172e42762a.png)
+
   1. Create a dashboard in kibana and generate visual report(line graph) for Memory usage and load average of server1 with relation to time
+
+##### Memory Usage Line Graph
+![image](https://user-images.githubusercontent.com/23631617/144556902-4ad295c2-9686-42e5-9203-523a65dd35cc.png)
+
+##### Avaeage Load Line Graph
+![image](https://user-images.githubusercontent.com/23631617/144557926-68593ffc-99ef-4569-81ad-490edad92705.png)
 
   2. Generate alerts through kibana system for following thresholds
     a. when memory usage > 80% for last 2 minutes send alert to a slack channel
