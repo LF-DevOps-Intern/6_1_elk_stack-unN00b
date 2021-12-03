@@ -101,11 +101,9 @@ We can individually check format for the required metrics. For memory use percen
 ##### Slack Integration
 ![image](https://user-images.githubusercontent.com/23631617/144580655-294d5a14-3f38-4568-974c-9207adde574c.png)
 
-##### Alert in Slack
+##### Slack Alerts
 ![image](https://user-images.githubusercontent.com/23631617/144580869-a1e347b3-22e4-4641-b498-c6dc91a1653c.png)
-
-##### Slack Alert
 ![image](https://user-images.githubusercontent.com/23631617/144583728-e29f8a05-ac95-4206-be8f-e514a76c963d.png)
 
-##### Cusotom Alerts
+##### Kibana Custom Alerts
 ![image](https://user-images.githubusercontent.com/23631617/144584017-98b984ee-b1de-490a-b5d2-9e04b4067f35.png)
